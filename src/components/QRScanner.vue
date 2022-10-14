@@ -42,7 +42,7 @@ const config = {
 // when component is mounted
 onMounted(() => {
   // create a new scanner
-  const html5QrcodeScanner = new Html5QrcodeScanner('qr-code-full-region', config, true);
+  const html5QrcodeScanner = new Html5QrcodeScanner('qr-code-full-region', config, false);
   html5QrcodeScanner.render(onSuccess, onError);
 });
 </script>

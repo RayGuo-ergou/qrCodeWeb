@@ -93,13 +93,18 @@
 </template>
 
 <script lang="ts" setup>
-import { defineProps } from 'vue';
+import { defineProps, inject } from 'vue';
 
 defineProps({
   msg: {
     type: String,
     default: 'Welcome to Your Vue.js + TypeScript App',
   },
+});
+
+const axios: any = inject('axios');
+axios.get('https://api.plos.org/search?q=title:DNA').then((response: { data: any }) => {
+  console.log(response.data);
 });
 </script>
 

@@ -37,6 +37,7 @@ import { ref } from 'vue';
 import UserService from '@/services/UserService';
 import { useRouter } from 'vue-router';
 import { useToast } from 'vue-toastification';
+import { AxiosError } from 'axios';
 
 const router = useRouter();
 const toast = useToast();
@@ -72,12 +73,13 @@ const submit = async () => {
       // vue router redirect to home page
       router.push('/');
     })
-    .catch((error) => {
+    .catch((error: AxiosError) => {
       // if error.data.error.message is undefined, show error.data.error
       // else show "Server error, something went wrong"
+      console.log(error);
       let message = 'Server error, something went wrong';
-      if (typeof error.response.data.error.message !== 'undefined') {
-        message = error.response.data.error.message;
+      if (error.response !== null) {
+        message = error.response?.data?.error.message;
       }
       toast.error(message, {
         timeout: 5000,

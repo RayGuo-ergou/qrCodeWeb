@@ -43,7 +43,6 @@
               <li><button class="dropdown-item" @click="logout">Logout</button></li>
             </ul>
           </div>
-          <button @click="checkUser">check user</button>
         </div>
       </div>
     </div>
@@ -51,10 +50,11 @@
 </template>
 <script setup lang="ts">
 import { ref, watch } from 'vue';
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 import UserService from '@/services/UserService';
 
 const route = useRoute();
+const router = useRouter();
 const isLoggedIn = ref(localStorage.getItem('username') !== null);
 const username = ref(
   localStorage.getItem('username') !== null ? localStorage.getItem('username') : '',
@@ -79,8 +79,8 @@ const navData = ref([
     link: '/',
   },
   {
-    name: 'About',
-    link: '/about',
+    name: 'Generate',
+    link: '/generate',
   },
   {
     name: 'Scan',
@@ -98,16 +98,11 @@ const logout = () => {
   UserService.logout()
     .then((response) => {
       console.log(response.message);
-    })
-    .catch((error) => {
-      console.log(error);
-    });
-};
-
-const checkUser = () => {
-  UserService.getUser()
-    .then((response) => {
-      console.log(response);
+      // check current route path
+      if (route.path === '/scan') {
+        // redirect to home page
+        router.push('/');
+      }
     })
     .catch((error) => {
       console.log(error);

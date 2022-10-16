@@ -4,6 +4,11 @@
 <script lang="ts" setup>
 import { defineProps, onMounted, defineEmits } from 'vue';
 import { Html5QrcodeScanner, Html5QrcodeScanType } from 'html5-qrcode';
+import QRCodeServices from '@/services/QRCodeServices';
+import { AxiosError } from 'axios';
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
 
 // two props qrbox and fps
 // qrbox default is 250
@@ -20,12 +25,29 @@ const props = defineProps({
 });
 
 // emit is two events success and error
-const emit = defineEmits(['success', 'error']);
+const emit = defineEmits(['success', 'error', 'httpError']);
 
 // onSuccess method
-const onSuccess = (decodedText: string, decodedResult: object) => {
-  // emit event with decodedText
-  emit('success', decodedText, decodedResult);
+const onSuccess = async (decodedText: string, decodedResult: object) => {
+  await QRCodeServices.verify({ body: { token: decodedText } })
+    .then((res) => {
+      console.log(res);
+      // emit event with decodedText
+
+      emit('success', decodedText, decodedResult);
+    })
+    .catch(async (err: AxiosError) => {
+      console.log(err);
+      if (err.response?.status === 401 || err.response?.status === 406) {
+        // this means the token is invalid
+        // delate local storage username and email and redirect to login page
+        localStorage.removeItem('username');
+        localStorage.removeItem('email');
+        emit('httpError', 'Invalid token, please login again');
+        // refresh the page
+        router.push('/login');
+      }
+    });
 };
 
 // onError method

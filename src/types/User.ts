@@ -1,8 +1,17 @@
+type resultData = {
+  username: string;
+  email: string;
+};
+
 export type UserLoginPayload = {
   email: string;
   password: string;
 };
 
 export type UserLoginResult = {
-  token: string;
+  data: resultData;
+};
+
+export type CheckUserResult = {
+  message: string;
 };

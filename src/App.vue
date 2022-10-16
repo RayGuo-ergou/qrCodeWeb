@@ -1,11 +1,12 @@
 <template>
-  <nav>
-    <router-link to="/">Home</router-link> | <router-link to="/about">About</router-link> |
-    <router-link to="/scan">Scan</router-link>
-  </nav>
+  <NavBar />
+
   <router-view />
 </template>
 
+<script setup lang="ts">
+import NavBar from '@/components/NavBar.vue'; // @ is an alias to /src
+</script>
 <style lang="scss">
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;

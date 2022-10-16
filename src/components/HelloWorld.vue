@@ -94,20 +94,6 @@
 
 <script lang="ts" setup>
 import { defineProps } from 'vue';
-import UserService from '@/services/UserService';
-
-const test = async () => {
-  UserService.login({ email: 'ray@admin.com', password: 'password' }).then((res) => {
-    console.log(res);
-  });
-
-  UserService.test({ email: 't1est@t1e1111st.com', type: 1 }).then((res) => {
-    console.log(res);
-  });
-};
-test();
-
-console.log(UserService.test);
 
 defineProps({
   msg: {

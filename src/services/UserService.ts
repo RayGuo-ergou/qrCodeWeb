@@ -1,16 +1,15 @@
 import http from '@/common/http';
-import { UserLoginPayload, UserLoginResult } from '@/types/User';
+import { UserLoginPayload, UserLoginResult, CheckUserResult } from '@/types/User';
 
 const UserService = {
   login(payload: UserLoginPayload): Promise<UserLoginResult> {
-    return http.get(`/api/user?email=${payload.email}&password=${payload.password}`, {
-      withCredentials: true,
-    });
+    return http.get(`/api/user/login?email=${payload.email}&password=${payload.password}`);
   },
-  test(payload: any) {
-    return http.post('/api/qr', payload, {
-      withCredentials: true,
-    });
+  getUser(): Promise<CheckUserResult> {
+    return http.get('/api/user');
+  },
+  logout(): Promise<CheckUserResult> {
+    return http.get('/api/user/logout');
   },
 };
 

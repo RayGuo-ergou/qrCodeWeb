@@ -2,10 +2,11 @@ import axios, { AxiosInstance } from 'axios';
 
 const http: AxiosInstance = axios.create({
   // FIXME: This is a temporary solution. We should use a proxy server to avoid CORS issues.
-  baseURL: 'https://qrcodebackend1.azurewebsites.net/',
+  baseURL: 'http://localhost:4000',
   headers: {
     'Content-Type': 'application/json',
   },
+  withCredentials: true,
 });
 
 export default http;

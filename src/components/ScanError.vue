@@ -6,16 +6,14 @@
       <p class="card-text">
         {{ errorMessage }}
       </p>
-      <button class="btn btn-primary" @click="router.go(0)">Go Back.</button>
+      <button class="btn btn-primary" @click="$emit('back')">Go Back.</button>
     </div>
   </div>
 </template>
 <script setup lang="ts">
-import { defineProps } from 'vue';
-import { useRouter } from 'vue-router';
+import { defineProps, defineEmits } from 'vue';
 
-const router = useRouter();
-
+defineEmits(['back']);
 defineProps({
   errorMessage: {
     type: String,

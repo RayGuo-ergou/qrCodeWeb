@@ -105,11 +105,9 @@ const generate = async () => {
   await UserService.getUser()
     .then((response) => {
       console.log(response);
-      console.log('logged in');
     })
     .catch((error) => {
       console.log(error);
-      console.log('not logged in');
       number.value = 0;
       // this means the token is invalid
       // delate local storage username and email and redirect to login page
@@ -117,19 +115,7 @@ const generate = async () => {
       localStorage.removeItem('email');
 
       // give a toast
-      toast.error('Invalid token, please login again', {
-        timeout: 3000,
-        closeOnClick: true,
-        pauseOnFocusLoss: true,
-        pauseOnHover: true,
-        draggable: true,
-        draggablePercent: 0.6,
-        showCloseButtonOnHover: false,
-        hideProgressBar: true,
-        closeButton: 'button',
-        icon: true,
-        rtl: false,
-      });
+      toast.error('Invalid token, please login again');
       router.push('/login');
     });
   // if number is 0 do nothing

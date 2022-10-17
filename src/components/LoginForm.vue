@@ -56,19 +56,7 @@ const submit = async () => {
       localStorage.setItem('username', data.username);
       localStorage.setItem('email', data.email);
 
-      toast.success('Login success, redirect to home page.', {
-        timeout: 3000,
-        closeOnClick: true,
-        pauseOnFocusLoss: true,
-        pauseOnHover: true,
-        draggable: true,
-        draggablePercent: 0.6,
-        showCloseButtonOnHover: false,
-        hideProgressBar: true,
-        closeButton: 'button',
-        icon: true,
-        rtl: false,
-      });
+      toast.success('Login success, redirect to home page.');
       // vue router redirect to home page
       router.push('/');
     })
@@ -80,19 +68,7 @@ const submit = async () => {
       if (error.response?.data?.error.message != null) {
         message = error.response?.data?.error.message;
       }
-      toast.error(message, {
-        timeout: 5000,
-        closeOnClick: true,
-        pauseOnFocusLoss: true,
-        pauseOnHover: true,
-        draggable: true,
-        draggablePercent: 0.6,
-        showCloseButtonOnHover: false,
-        hideProgressBar: true,
-        closeButton: 'button',
-        icon: true,
-        rtl: false,
-      });
+      toast.error(message);
     });
 };
 </script>

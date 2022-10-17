@@ -15,7 +15,7 @@
           v-if="successScan && !showError"
           @goBack="successScan = !successScan"
         />
-        <ScanError :errorMessage="errorMsg" v-if="showError" />
+        <ScanError :errorMessage="errorMsg" v-if="showError" @back="onBackFromError" />
       </div>
     </div>
   </div>
@@ -56,6 +56,7 @@ const onSuccess = (data: QRVerifyData) => {
     qrData.value = data;
     successScan.value = true;
   }
+
   console.log(data);
 };
 
@@ -67,19 +68,12 @@ const onHttpError = (errorMessage: string) => {
   showError.value = true;
   errorMsg.value = errorMessage;
   console.log(errorMessage);
-  toast.error(errorMessage, {
-    timeout: 5000,
-    closeOnClick: true,
-    pauseOnFocusLoss: true,
-    pauseOnHover: true,
-    draggable: true,
-    draggablePercent: 0.6,
-    showCloseButtonOnHover: false,
-    hideProgressBar: true,
-    closeButton: 'button',
-    icon: true,
-    rtl: false,
-  });
+  toast.error(errorMessage);
+};
+
+const onBackFromError = () => {
+  showError.value = false;
+  errorMsg.value = '';
 };
 </script>
 <style lang="scss" scoped>

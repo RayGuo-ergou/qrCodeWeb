@@ -1,4 +1,4 @@
-type resultData = {
+export type UserLoginResult = {
   username: string;
   email: string;
 };
@@ -6,10 +6,6 @@ type resultData = {
 export type UserLoginPayload = {
   email: string;
   password: string;
-};
-
-export type UserLoginResult = {
-  data: resultData;
 };
 
 export type CheckUserResult = {

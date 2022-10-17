@@ -40,19 +40,26 @@
       </div>
     </div>
   </div>
-  <img :src="example" alt="" />
+  <img :src="qr.dataImage" v-for="qr in QRList" :key="qr.number" :alt="qr.username" />
   <button @click="downloadZip">downloadzip</button>
 </template>
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, Ref } from 'vue';
 import QRCodeServices from '@/services/QRCodeServices';
+import UserService from '@/services/UserService';
 import JsZip from 'jszip';
 import { saveAs } from 'file-saver';
+import { QRGenerateData } from '@/types/QRCode';
+import { useRouter } from 'vue-router';
+import { useToast } from 'vue-toastification';
 
 const number = ref(0);
 const loading = ref(false);
 const selection = ref(0);
 const zip = new JsZip();
+const QRList: Ref<QRGenerateData[]> = ref([]);
+const router = useRouter();
+const toast = useToast();
 
 const example = ref(
   'data:image/png;base64,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',
@@ -68,22 +75,73 @@ const checkValue = () => {
 };
 
 const generate = async () => {
-  loading.value = true;
-  const email = localStorage.getItem('email');
-  await QRCodeServices.generate({
-    body: {
-      // '' will return error tho
-      email: email !== null ? email : '',
-      type: selection.value,
-    },
-  })
+  // TODO: should move to router beforeeach
+  // will do if have time
+
+  // EDIT: still leave this for now
+  // in case user keep the page open for a long time
+  await UserService.getUser()
     .then((response) => {
       console.log(response);
+      console.log('logged in');
     })
     .catch((error) => {
       console.log(error);
+      console.log('not logged in');
+      number.value = 0;
+      // this means the token is invalid
+      // delate local storage username and email and redirect to login page
+      localStorage.removeItem('username');
+      localStorage.removeItem('email');
+
+      // give a toast
+      toast.error('Invalid token, please login again', {
+        timeout: 3000,
+        closeOnClick: true,
+        pauseOnFocusLoss: true,
+        pauseOnHover: true,
+        draggable: true,
+        draggablePercent: 0.6,
+        showCloseButtonOnHover: false,
+        hideProgressBar: true,
+        closeButton: 'button',
+        icon: true,
+        rtl: false,
+      });
+      router.push('/login');
     });
-  loading.value = false;
+  // if number is 0 do nothing
+  if (number.value !== 0 && number.value != null && typeof number.value === 'number') {
+    loading.value = true;
+    const email = localStorage.getItem('email');
+    // for loop to get number of qr code
+    for (let i = 0; i < number.value; i += 1) {
+      QRCodeServices.generate({
+        body: {
+          // '' will return error tho
+          email: email !== null ? email : '',
+          type: selection.value,
+        },
+      })
+        .then((response) => {
+          // push data to list
+          const { data } = response;
+          QRList.value.push(data);
+
+          // console.log(response);
+        })
+        .catch((error) => {
+          console.log(error);
+        })
+        .finally(() => {
+          // if i is final number, set loading to false
+          if (i === number.value - 1) {
+            loading.value = false;
+          }
+        });
+    }
+  }
+  console.log(QRList.value);
 };
 
 const downloadZip = async () => {
@@ -110,8 +168,8 @@ const downloadZip = async () => {
 }
 #loadingBackground {
   // height and width is the window size
-  height: 100vh;
-  width: 100vh;
+  height: 100%;
+  width: 100%;
   background-color: grey;
   z-index: 1;
   position: fixed;

@@ -1,14 +1,17 @@
 import http from '@/common/http';
-import { UserLoginPayload, UserLoginResult, CheckUserResult } from '@/types/User';
+import * as UserTypes from '@/types/User';
+import { AxiosResponse } from 'axios';
 
 const UserService = {
-  login(payload: UserLoginPayload): Promise<UserLoginResult> {
+  login(payload: UserTypes.UserLoginPayload): Promise<AxiosResponse<UserTypes.UserLoginResult>> {
     return http.get(`/api/user/login?email=${payload.email}&password=${payload.password}`);
   },
-  getUser(): Promise<CheckUserResult> {
+
+  getUser(): Promise<AxiosResponse<UserTypes.CheckUserResult>> {
     return http.get('/api/user');
   },
-  logout(): Promise<CheckUserResult> {
+
+  logout(): Promise<AxiosResponse<UserTypes.CheckUserResult>> {
     return http.get('/api/user/logout');
   },
 };

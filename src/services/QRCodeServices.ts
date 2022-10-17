@@ -1,5 +1,6 @@
 import http from '@/common/http';
 import * as qrTypes from '@/types/QRCode';
+import { AxiosResponse } from 'axios';
 
 const QRCodeServices = {
   findMany(payload: qrTypes.QRFindManyPayload) {
@@ -10,7 +11,7 @@ const QRCodeServices = {
     return http.get(`/api/qr/${payload.id}?email=${payload.query.email}`);
   },
 
-  generate(payload: qrTypes.QRGeneratePayload) {
+  generate(payload: qrTypes.QRGeneratePayload): Promise<AxiosResponse<qrTypes.QRGenerateData>> {
     return http.post('/api/qr', payload.body);
   },
 

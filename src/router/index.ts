@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
 import { useToast, POSITION } from 'vue-toastification';
+import UserService from '@/services/UserService';
 
 const toast = useToast();
 
@@ -36,12 +37,17 @@ const router = createRouter({
   routes,
 });
 
-router.beforeEach((to, from, next) => {
+router.beforeEach(async (to, from, next) => {
   // check if the route requires auth
   if (to.matched.some((record) => record.meta.requiresAuth)) {
     // check if not logged in
-    if (!localStorage.getItem('username')) {
-      // give a toast
+
+    try {
+      await UserService.getUser();
+
+      next();
+    } catch (err) {
+      console.log(err);
       toast.error('You must be logged in to access this page', {
         position: POSITION.TOP_RIGHT,
         timeout: 3000,
@@ -56,15 +62,11 @@ router.beforeEach((to, from, next) => {
         icon: true,
         rtl: false,
       });
-      // go to login
-      next({
-        path: '/',
-      });
-    } else {
-      next();
+      next({ path: '/login' });
     }
-    // if logged in hit login page, redirect to home
-    // TODO: should send an ajax request to check if the token is valid
+
+    // the worst case is user delete username and login again
+    // its fine to use local storage
   } else if (to.name === 'login' && localStorage.getItem('username')) {
     next({
       path: '/',

@@ -97,7 +97,7 @@ const logout = () => {
   email.value = '';
   UserService.logout()
     .then((response) => {
-      console.log(response.message);
+      console.log(response.data.message);
       // check current route path
       if (route.path === '/scan') {
         // redirect to home page

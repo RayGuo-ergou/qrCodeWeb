@@ -25,6 +25,10 @@ jobs:
       - name: Build project
         run: npm run build
 
+      - name: hack history mode
+        run: |
+          cp dist/index.html dist/404.html
+
       - name: Upload production-ready build files
         uses: actions/upload-artifact@v3
         with:

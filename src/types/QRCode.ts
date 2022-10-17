@@ -22,6 +22,8 @@ export type QRVerifyData = {
   message: string;
   user: string;
   number: number;
+  type: number;
+  isActive: boolean;
 };
 
 export type QRUpdateData = {

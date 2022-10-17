@@ -1,11 +1,13 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
-import HomeView from '../views/HomeView.vue';
+import { useToast, POSITION } from 'vue-toastification';
+
+const toast = useToast();
 
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
     name: 'home',
-    component: HomeView,
+    component: () => import(/* webpackChunkName: "home" */ '../views/HomeView.vue'),
   },
   {
     path: '/generate',
@@ -39,6 +41,21 @@ router.beforeEach((to, from, next) => {
   if (to.matched.some((record) => record.meta.requiresAuth)) {
     // check if not logged in
     if (!localStorage.getItem('username')) {
+      // give a toast
+      toast.error('You must be logged in to access this page', {
+        position: POSITION.TOP_RIGHT,
+        timeout: 3000,
+        closeOnClick: true,
+        pauseOnFocusLoss: true,
+        pauseOnHover: true,
+        draggable: true,
+        draggablePercent: 0.6,
+        showCloseButtonOnHover: false,
+        hideProgressBar: false,
+        closeButton: 'button',
+        icon: true,
+        rtl: false,
+      });
       // go to login
       next({
         path: '/',
@@ -47,6 +64,7 @@ router.beforeEach((to, from, next) => {
       next();
     }
     // if logged in hit login page, redirect to home
+    // TODO: should send an ajax request to check if the token is valid
   } else if (to.name === 'login' && localStorage.getItem('username')) {
     next({
       path: '/',

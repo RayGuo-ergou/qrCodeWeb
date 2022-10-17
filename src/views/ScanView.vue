@@ -13,7 +13,6 @@
 </template>
 <script setup lang="ts">
 import QRScanner from '@/components/QRScanner.vue';
-import { ref } from 'vue';
 import { useToast } from 'vue-toastification';
 
 const toast = useToast();

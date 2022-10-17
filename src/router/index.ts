@@ -62,6 +62,10 @@ router.beforeEach(async (to, from, next) => {
         icon: true,
         rtl: false,
       });
+      // clear the username and email
+      localStorage.removeItem('username');
+      localStorage.removeItem('email');
+
       next({ path: '/login' });
     }
 

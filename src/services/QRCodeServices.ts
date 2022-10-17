@@ -15,11 +15,11 @@ const QRCodeServices = {
     return http.post('/api/qr', payload.body);
   },
 
-  update(payload: qrTypes.QRUpdatePayload) {
-    return http.put(`/api/qr/${payload.id}`, payload.body);
+  update(payload: qrTypes.QRUpdatePayload): Promise<AxiosResponse<qrTypes.QRUpdateData>> {
+    return http.patch(`/api/qr/${payload.id}`, payload.body);
   },
 
-  verify(payload: qrTypes.QRVerifyPayload) {
+  verify(payload: qrTypes.QRVerifyPayload): Promise<AxiosResponse<qrTypes.QRVerifyData>> {
     return http.post('/api/qr/scan', payload.body);
   },
 };

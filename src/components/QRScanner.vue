@@ -33,8 +33,9 @@ const onSuccess = async (decodedText: string, decodedResult: object) => {
     .then((res) => {
       console.log(res);
       // emit event with decodedText
+      const { data } = res;
 
-      emit('success', decodedText, decodedResult);
+      emit('success', data);
     })
     .catch(async (err: AxiosError) => {
       console.log(err);

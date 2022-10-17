@@ -227,11 +227,13 @@ const downloadZip = async () => {
 }
 #loadingBackground {
   // height and width is the window size
-  height: 100%;
-  width: 100%;
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  left: 0px;
   background-color: grey;
   z-index: 1;
-  position: fixed;
-  opacity: 0.5;
+  opacity: 0.7;
 }
 </style>

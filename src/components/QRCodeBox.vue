@@ -13,7 +13,7 @@
 </template>
 <script setup lang="ts">
 import { defineProps, computed } from 'vue';
-import { QRGenerateData } from '@/types/QRCode';
+import { QRGenerateData, QRVerifyData } from '@/types/QRCode';
 
 const props = defineProps({
   qr: {

@@ -49,19 +49,6 @@ const onSuccess = (data: QRVerifyData) => {
 
 const onError = (errorMessage: string) => {
   console.log(errorMessage);
-  toast.error(errorMessage, {
-    timeout: 5000,
-    closeOnClick: true,
-    pauseOnFocusLoss: true,
-    pauseOnHover: true,
-    draggable: true,
-    draggablePercent: 0.6,
-    showCloseButtonOnHover: false,
-    hideProgressBar: true,
-    closeButton: 'button',
-    icon: true,
-    rtl: false,
-  });
 };
 
 const onHttpError = (errorMessage: string) => {

@@ -1,12 +1,15 @@
 <template>
-  <QRScanner
-    style="width: 500px"
-    :qrbox="250"
-    :fps="10"
-    @success="onSuccess"
-    @error="onError"
-    @httpError="onHttpError"
-  />
+  <div class="row justify-content-xl-center">
+    <div class="col-xl-6 col-xs-10">
+      <QRScanner
+        :qrbox="250"
+        :fps="10"
+        @success="onSuccess"
+        @error="onError"
+        @httpError="onHttpError"
+      />
+    </div>
+  </div>
 </template>
 <script setup lang="ts">
 import QRScanner from '@/components/QRScanner.vue';

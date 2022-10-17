@@ -135,6 +135,7 @@ const generate = async () => {
   // if number is 0 do nothing
   if (number.value !== 0 && number.value != null && typeof number.value === 'number') {
     loading.value = true;
+    document.documentElement.style.overflow = 'hidden';
     const email = localStorage.getItem('email');
 
     const dummyArray = Array.from({ length: number.value }, (_, i) => i);
@@ -162,6 +163,7 @@ const generate = async () => {
             // if i is final number, set loading to false
             if (i === number.value - 1) {
               loading.value = false;
+              document.documentElement.style.overflow = 'visible';
             }
           });
       });

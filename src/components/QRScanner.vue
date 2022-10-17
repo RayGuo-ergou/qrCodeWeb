@@ -46,6 +46,12 @@ const onSuccess = async (decodedText: string, decodedResult: object) => {
         emit('httpError', 'Invalid token, please login again');
         // refresh the page
         router.push('/login');
+      } else if (err.response?.status === 400 || err.response?.status === 404) {
+        emit('httpError', 'Invalid QR code');
+      } else if (err.response?.status === 500) {
+        emit('httpError', 'Server error, please try again or contact admin.');
+      } else {
+        emit('httpError', 'Unknown error, please try again or contact admin.');
       }
     });
 };
@@ -53,6 +59,7 @@ const onSuccess = async (decodedText: string, decodedResult: object) => {
 // onError method
 const onError = (errorMessage: string) => {
   // emit event with errorMessage
+
   emit('error', errorMessage);
 };
 const config = {

@@ -10,4 +10,5 @@ export type UserLoginPayload = {
 
 export type CheckUserResult = {
   message: string;
+  role: number;
 };

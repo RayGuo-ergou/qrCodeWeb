@@ -17,7 +17,7 @@ const routes: Array<RouteRecordRaw> = [
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "about" */ '../views/GenerateView.vue'),
-    meta: { requiresAuth: true },
+    meta: { requiresAuth: true, requireAdmin: true },
   },
   {
     path: '/scan',
@@ -43,9 +43,19 @@ router.beforeEach(async (to, from, next) => {
     // check if not logged in
 
     try {
-      await UserService.getUser();
-
-      next();
+      const user = await UserService.getUser();
+      const { data } = user;
+      if (to.matched.some((record) => record.meta.requireAdmin)) {
+        // not 0 means not admin
+        if (data.role !== 0) {
+          toast('You are not authorized to access this page');
+          next({ path: '/' });
+        } else {
+          next();
+        }
+      } else {
+        next();
+      }
     } catch (err) {
       console.log(err);
       toast.error('You must be logged in to access this page');

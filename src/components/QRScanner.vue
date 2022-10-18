@@ -41,8 +41,6 @@ onMounted(() => {
   // onSuccess method
   const onSuccess = async (decodedText: string, decodedResult: object) => {
     // stop scanning
-    html5QrcodeScanner.pause(true);
-
     if (html5QrcodeScanner.getState() === Html5QrcodeScannerState.SCANNING) {
       html5QrcodeScanner.pause(true);
     }

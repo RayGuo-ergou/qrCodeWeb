@@ -67,4 +67,13 @@ router.beforeEach(async (to, from, next) => {
   }
 });
 
+// after each route change, collapse the navbar
+router.afterEach(() => {
+  const navbar = document.getElementById('navbarSupportedContent');
+  // if the navbar is open, close it
+  if (navbar && navbar.classList.contains('show')) {
+    navbar.classList.remove('show');
+  }
+});
+
 export default router;

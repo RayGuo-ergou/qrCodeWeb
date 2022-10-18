@@ -10,24 +10,18 @@
         aria-controls="navbarSupportedContent"
         aria-expanded="false"
         aria-label="Toggle navigation"
+        id="toggleBtn"
       >
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li v-for="nav in navData" :key="nav.name" class="nav-item">
-            <router-link class="nav-link" :to="nav.link">{{ nav.name }}</router-link>
+            <router-link :to="nav.link" class="nav-link">{{ nav.name }}</router-link>
           </li>
         </ul>
-        <div class="d-flex">
-          <router-link
-            class="btn btn-primary"
-            style="color: #fff; margin-right: 10px; font-weight: unset"
-            id="login"
-            to="/login"
-            v-if="!isLoggedIn"
-            >Login</router-link
-          >
+        <div>
+          <router-link id="login" to="/login" v-if="!isLoggedIn">Login</router-link>
           <div class="dropdown" v-else>
             <button
               class="btn btn-primary dropdown-toggle"
@@ -35,7 +29,6 @@
               id="dropdownMenuButton1"
               data-bs-toggle="dropdown"
               aria-expanded="false"
-              style="margin-right: 10px"
             >
               {{ username }}: {{ email }}
             </button>

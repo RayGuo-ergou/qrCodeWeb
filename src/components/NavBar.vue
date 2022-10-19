@@ -1,7 +1,7 @@
 <template>
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">Navbar</a>
+      <a class="navbar-brand" href="#">Plus</a>
       <button
         class="navbar-toggler"
         type="button"
@@ -92,7 +92,7 @@ const logout = () => {
     .then((response) => {
       console.log(response.data.message);
       // check current route path
-      if (route.path === '/scan') {
+      if (route.path === '/scan' || route.path === '/generate') {
         // redirect to home page
         router.push('/');
       }

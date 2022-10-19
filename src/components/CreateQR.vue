@@ -40,6 +40,7 @@
             <option value="0">Free</option>
             <option value="1">Cut in</option>
             <option value="2">Cut in and free.</option>
+            <option value="3">Cut in and free (no limit).</option>
           </select>
         </label>
       </div>
@@ -183,6 +184,10 @@ const generate = async () => {
     //       }
     //     });
     // }
+  } else {
+    toast.warning('Please enter a valid number');
+    // set number to 0
+    number.value = 0;
   }
   console.log(QRList.value);
 };

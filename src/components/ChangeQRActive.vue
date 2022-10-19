@@ -71,7 +71,7 @@ const props = defineProps({
   },
 });
 
-defineEmits(['goBack']);
+const emit = defineEmits(['goBack']);
 
 const comfirmQR = async () => {
   loading.value = true;
@@ -94,6 +94,8 @@ const comfirmQR = async () => {
     })
     .finally(() => {
       loading.value = false;
+      // emit goBack event
+      emit('goBack');
     });
 };
 
@@ -101,6 +103,7 @@ const typesConvert = {
   0: 'Free',
   1: 'Cut in',
   2: 'Cut in and free',
+  3: 'Cut in and free (no limit)',
 };
 const convertedType = computed(() => typesConvert[props.qr.type as keyof typeof typesConvert]);
 </script>

@@ -3,18 +3,13 @@
     <h1>How to use this application:</h1>
     <p>There are 2 main purpose of this application:</p>
     <ul>
-      <li>Scan QR Code</li>
-      <li>Generate QR Code</li>
+      <li>
+        <router-link to="/scan"> Scan QR Code </router-link>
+      </li>
+      <li><router-link to="/generate"> Generate QR Code </router-link></li>
     </ul>
 
     <p>Both needs <b>authentication</b></p>
-
-    <h2>Scan QR Code</h2>
-    <ol>
-      <li>Click login button at top right and login.</li>
-      <br />
-      <li></li>
-    </ol>
   </div>
 </template>
 

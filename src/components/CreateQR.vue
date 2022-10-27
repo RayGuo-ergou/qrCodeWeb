@@ -75,6 +75,7 @@ import { useRouter } from 'vue-router';
 import { useToast } from 'vue-toastification';
 import Bottleneck from 'bottleneck';
 import QRCodeBox from '@/components/QRCodeBox.vue';
+import typesConvert from '@/types/typesConvert';
 
 const number = ref(0);
 const loading = ref(false);
@@ -194,9 +195,13 @@ const generate = async () => {
 
 const downloadZip = async () => {
   QRList.value.forEach((element) => {
-    zip.file(`${element.username}${element.number}.jpg`, element.dataImage.split(',')[1], {
-      base64: true,
-    });
+    zip.file(
+      `${typesConvert[element.type as keyof typeof typesConvert]}${element.number}.jpg`,
+      element.dataImage.split(',')[1],
+      {
+        base64: true,
+      },
+    );
   });
 
   await zip.generateAsync({ type: 'blob' }).then((content) => {

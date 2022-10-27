@@ -13,7 +13,8 @@
 </template>
 <script setup lang="ts">
 import { defineProps, computed } from 'vue';
-import { QRGenerateData, QRVerifyData } from '@/types/QRCode';
+import { QRGenerateData } from '@/types/QRCode';
+import typesConvert from '@/types/typesConvert';
 
 const props = defineProps({
   qr: {
@@ -22,15 +23,8 @@ const props = defineProps({
   },
 });
 
-const typesConvert = {
-  0: 'Free',
-  1: 'Cut in',
-  2: 'Cut in and free',
-  3: 'Cut in and free (no limit)',
-};
-
 // create a computed property
-const qrCodeId = computed(() => props.qr.username + props.qr.number);
 const convertedType = computed(() => typesConvert[props.qr.type as keyof typeof typesConvert]);
+const qrCodeId = computed(() => convertedType.value + props.qr.number);
 </script>
 <style scoped lang="scss"></style>

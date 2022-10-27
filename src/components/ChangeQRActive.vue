@@ -60,6 +60,7 @@ import { defineProps, ref, computed, defineEmits } from 'vue';
 import { QRVerifyData } from '@/types/QRCode';
 import QRCodeServices from '@/services/QRCodeServices';
 import { useToast } from 'vue-toastification';
+import typesConvert from '@/types/typesConvert';
 
 const toast = useToast();
 const loading = ref(false);
@@ -99,12 +100,6 @@ const comfirmQR = async () => {
     });
 };
 
-const typesConvert = {
-  0: 'Free',
-  1: 'Cut in',
-  2: 'Cut in and free',
-  3: 'Cut in and free (no limit)',
-};
 const convertedType = computed(() => typesConvert[props.qr.type as keyof typeof typesConvert]);
 </script>
 <style scoped lang="scss">
